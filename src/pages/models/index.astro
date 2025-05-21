@@ -1,9 +1,15 @@
 ---
 import Layout from '../../components/Layout.astro'
-title: "Models Page"
+import { modelNames, slugify } from '../../data/models'
+
+title: 'Models'
 ---
 
 <Layout>
   <h2>Models</h2>
-  <p>Models page content.</p>
+  <ul>
+    {modelNames.map(name => (
+      <li><a href={`/models/${slugify(name)}/`}>{name}</a></li>
+    ))}
+  </ul>
 </Layout>

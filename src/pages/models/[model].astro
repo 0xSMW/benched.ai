@@ -1,10 +1,16 @@
 ---
 import Layout from '../../components/Layout.astro'
+import { modelNames, slugify } from '../../data/models'
+
 export async function getStaticPaths() {
-  return []
+  return modelNames.map(name => ({ params: { model: slugify(name) } }))
 }
+
+const { model } = Astro.params
+const name = modelNames.find(n => slugify(n) === model)
 ---
 
 <Layout>
-  <p>Placeholder detail page.</p>
+  <h2>{name}</h2>
+  <p>Model page for {name}.</p>
 </Layout>
