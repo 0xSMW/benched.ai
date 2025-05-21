@@ -6,9 +6,46 @@ export async function getStaticPaths() {
 }
 const { provider } = Astro.params
 const data = providers.find(p => p.slug === provider)
+const pages = import.meta.glob('../../content/providers/*.md')
+let MDContent
+if (pages[`../../content/providers/${provider}.md`]) {
+  MDContent = (await pages[`../../content/providers/${provider}.md`]()).default
+}
 ---
 
 <Layout>
   <h2>{data?.name}</h2>
-  <p>Provider page for {data?.name}.</p>
+  {MDContent ? <MDContent /> : <p>More details coming soon.</p>}
+  <section>
+    <h3>Intelligence Evaluations</h3>
+    <p>Details about intelligence evaluations go here.</p>
+  </section>
+  <section>
+    <h3>Context Window</h3>
+    <p>Information about context window.</p>
+  </section>
+  <section>
+    <h3>JSON Mode & Function Calling</h3>
+    <p>Support for JSON mode and function calling.</p>
+  </section>
+  <section>
+    <h3>Pricing</h3>
+    <p>Pricing information.</p>
+  </section>
+  <section>
+    <h3>Performance Summary</h3>
+    <p>Performance summary.</p>
+  </section>
+  <section>
+    <h3>Speed</h3>
+    <p>Speed metrics.</p>
+  </section>
+  <section>
+    <h3>Latency</h3>
+    <p>Latency metrics.</p>
+  </section>
+  <section>
+    <h3>End-to-End Response Time</h3>
+    <p>End-to-end response time metrics.</p>
+  </section>
 </Layout>
