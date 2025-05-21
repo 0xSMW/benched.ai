@@ -1,10 +1,20 @@
 ---
 import Layout from '../../components/Layout.astro'
+import { assistants } from '../../data/assistants'
 export async function getStaticPaths() {
-  return []
+  return assistants.map(a => ({ params: { assistant: a.slug } }))
+}
+const { assistant } = Astro.params
+const data = assistants.find(a => a.slug === assistant)
+const contentModules = import.meta.glob('../../content/assistants/*.md')
+let Content
+if (contentModules[`../../content/assistants/${assistant}.md`]) {
+  const mod = await contentModules[`../../content/assistants/${assistant}.md`]()
+  Content = mod.default
 }
 ---
 
 <Layout>
-  <p>Placeholder detail page.</p>
+  <h2>{data?.name}</h2>
+  {Content ? <Content /> : <p>Assistant page for {data?.name}.</p>}
 </Layout>
