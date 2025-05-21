@@ -1,42 +1,44 @@
 # Benched.ai
 
-Benched.ai is a website dedicated to providing independent benchmarks and in-depth analysis of AI models, inference providers, AI assistants, AI coding tools, and MCP (Model Context Protocol) servers. Our goal is to help users, developers, and organizations make informed decisions by offering transparent, up-to-date, and unbiased performance evaluations across the rapidly evolving AI landscape.
+Benched.ai is your trusted source for independent benchmarks and in-depth analysis of AI models, inference providers, AI assistants, coding tools, and Model Context Protocol (MCP) servers. Our mission is to help users, developers, and organizations make informed decisions in the rapidly evolving AI landscape by providing transparent, up-to-date, and unbiased performance evaluations.
 
-Powered by Astro
+## What is Benched.ai?
+Benched.ai is a web platform dedicated to:
+- **Benchmarking AI Models:** Compare the latest AI models across a variety of tasks and metrics.
+- **Provider & Tool Analysis:** Evaluate inference providers, coding assistants, and other AI tools for performance, cost, and reliability.
+- **Transparent Reporting:** Access detailed reports, leaderboards, and historical trends to track progress in the AI ecosystem.
+- **Community & Insights:** Read expert analysis, user reviews, and participate in discussions about AI technologies.
 
+## Who is it for?
+- **Developers & Engineers:** Find the best models and tools for your projects.
+- **Researchers:** Access reliable benchmarks and data for your studies.
+- **Organizations:** Make data-driven decisions about AI adoption and integration.
+- **AI Enthusiasts:** Stay informed about the latest advancements and trends.
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+## Tech Stack
+Benched.ai is built with [Astro](https://astro.build), a modern static site generator, and leverages popular frameworks and libraries for UI components and interactivity.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+## Getting Started (Development)
+To run the project locally:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+1. Install dependencies:
+   ```sh
+   pnpm install
+   ```
+2. Start the development server:
+   ```sh
+   pnpm run dev
+   ```
+3. Build for production:
+   ```sh
+   pnpm run build
+   ```
+4. Preview the production build:
+   ```sh
+   pnpm run preview
+   ```
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
+## Common Commands
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
@@ -47,6 +49,6 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm run astro ...`      | Run CLI commands like `astro add`, `astro check` |
 | `pnpm run astro -- --help`| Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Learn More
+- [Benched.ai Website](https://benched.ai)
+- [Astro Documentation](https://docs.astro.build)
