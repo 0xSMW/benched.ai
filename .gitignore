@@ -76,4 +76,4 @@ storybook-static/
 types/
 
 # Optional: ignore static assets cache
-public/assets/
+
