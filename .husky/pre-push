@@ -4,5 +4,11 @@
 # Run the version update script
 node scripts/update-version.js
 
+# Stage the changes
+git add package.json
+
+# Commit the changes
+git commit -m "chore: update version"
+
 # Exit with status of version update script
 exit $? 
