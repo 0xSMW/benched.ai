@@ -10,12 +10,20 @@ body {
   padding: 0;
   background-color: #000;
   color: #fff;
+  padding-top: 5rem; /* Add padding to prevent content overlap with fixed header */
 }
 
 header {
-  background-color: #111;
+  background-color: rgba(0, 0, 0, 0.8); /* Black with transparency */
   padding: 1rem 2rem;
   border-bottom: 1px solid #333;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(5px); /* Optional: adds a blur effect to the transparent header */
+  -webkit-backdrop-filter: blur(5px); /* For Safari */
 }
 
 header h1 a {
@@ -47,4 +55,48 @@ header nav ul li a:hover {
 
 main {
   padding: 2rem;
+}
+
+h2, h3 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+p {
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: #00aaff; /* A bright blue for links */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button, .button {
+  background-color: #222; /* Dark gray for buttons */
+  color: #fff;
+  border: 1px solid #444;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+button:hover, .button:hover {
+  background-color: #333;
+}
+
+.model-card,
+.provider-card {
+  background-color: #111; /* Slightly lighter than body background */
+  border: 1px solid #333;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
 }
