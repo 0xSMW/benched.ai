@@ -1,0 +1,1427 @@
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/plan/add-model-mdx-files.md b/plan/add-model-mdx-files.md
+new file mode 100644
+index 0000000..7819eea
+--- /dev/null
++++ b/plan/add-model-mdx-files.md
+@@ -0,0 +1,11 @@
++# Plan: Create placeholder MDX files for all models
++
++## Objective
++Generate a `.mdx` content file for every unique model listed in `modelNames`. These placeholder files allow future expansion with richer content.
++
++## Steps
++1. Read model names from `src/data/models.ts`.
++2. Generate URL slugs using the existing `slugify` logic.
++3. For each unique slug, create `src/content/models/<slug>.mdx` containing a heading with the model name.
++4. Run `pnpm run lint` and `pnpm run build` to ensure the project compiles.
++5. Add a release note summarizing the creation of MDX model files.
+diff --git a/plan/add-model-pages.md b/plan/add-model-pages.md
+new file mode 100644
+index 0000000..66f1cdc
+--- /dev/null
++++ b/plan/add-model-pages.md
+@@ -0,0 +1,23 @@
++# Plan: Add AI Model Pages
++
++## Objective
++Create individual pages for all AI models listed in the user request. Pages will be generated dynamically using a models data file and slugify helper. The index page will link to each model.
++
++## Steps
++1. **Create data file** `src/data/models.ts`
++   - Export `modelNames` array with all provided model names.
++   - Export `slugify(name: string)` helper to generate URL-friendly slugs.
++
++2. **Update dynamic page** `src/pages/models/[model].astro`
++   - Import `modelNames` and `slugify`.
++   - Implement `getStaticPaths()` to return paths for every model slug.
++   - Find model name by slug and display placeholder content.
++
++3. **Update models index** `src/pages/models/index.astro`
++   - Import data file.
++   - List all models linking to their detail pages.
++
++4. **Update release notes** with a summary bullet.
++
++5. **Run `pnpm run lint` and `pnpm run build`** to ensure code quality and build success.
++
+diff --git a/release-notes.md b/release-notes.md
+index fe6d6ae..1e98cef 100644
+--- a/release-notes.md
++++ b/release-notes.md
+@@ -1,11 +1,13 @@
+ # Release Notes
+ 
+ ## Next
+ - Added Astro-compatible ESLint setup with Husky pre-commit hook enforcing no semicolons.
+ - Switched index pages to Astro shorthand title format.
+ - Fixed build errors by converting page frontmatter to valid JavaScript and adding empty `getStaticPaths()` functions for placeholder dynamic routes.
+ - Migrated project to pnpm and removed npm lockfile.
+ - Added pages listing 32 inference providers.
+ - Disabled the `no-unused-labels` rule for Astro files and reverted pages to `title:` frontmatter.
+ - Fixed ESLint script to use existing configuration and updated pre-commit hook.
+ - Updated ESLint configuration to use flat setup with Astro support.
++- Added dynamic pages for over 100 AI models.
++- Generated placeholder MDX files for all models.
+diff --git a/src/content/models/arctic-instruct.mdx b/src/content/models/arctic-instruct.mdx
+new file mode 100644
+index 0000000..7daa046
+--- /dev/null
++++ b/src/content/models/arctic-instruct.mdx
+@@ -0,0 +1 @@
++# Arctic Instruct
+diff --git a/src/content/models/aya-expanse-32b.mdx b/src/content/models/aya-expanse-32b.mdx
+new file mode 100644
+index 0000000..ccd81d7
+--- /dev/null
++++ b/src/content/models/aya-expanse-32b.mdx
+@@ -0,0 +1 @@
++# Aya Expanse 32B
+diff --git a/src/content/models/aya-expanse-8b.mdx b/src/content/models/aya-expanse-8b.mdx
+new file mode 100644
+index 0000000..eea6856
+--- /dev/null
++++ b/src/content/models/aya-expanse-8b.mdx
+@@ -0,0 +1 @@
++# Aya Expanse 8B
+diff --git a/src/content/models/claude-2-0.mdx b/src/content/models/claude-2-0.mdx
+new file mode 100644
+index 0000000..63f854e
+--- /dev/null
++++ b/src/content/models/claude-2-0.mdx
+@@ -0,0 +1 @@
++# Claude 2.0
+diff --git a/src/content/models/claude-2-1.mdx b/src/content/models/claude-2-1.mdx
+new file mode 100644
+index 0000000..106db96
+--- /dev/null
++++ b/src/content/models/claude-2-1.mdx
+@@ -0,0 +1 @@
++# Claude 2.1
+diff --git a/src/content/models/claude-3-5-haiku.mdx b/src/content/models/claude-3-5-haiku.mdx
+new file mode 100644
+index 0000000..92123b1
+--- /dev/null
++++ b/src/content/models/claude-3-5-haiku.mdx
+@@ -0,0 +1 @@
++# Claude 3.5 Haiku
+diff --git a/src/content/models/claude-3-5-sonnet.mdx b/src/content/models/claude-3-5-sonnet.mdx
+new file mode 100644
+index 0000000..e898d71
+--- /dev/null
++++ b/src/content/models/claude-3-5-sonnet.mdx
+@@ -0,0 +1 @@
++# Claude 3.5 Sonnet (Oct '24)
+diff --git a/src/content/models/claude-3-7-sonnet.mdx b/src/content/models/claude-3-7-sonnet.mdx
+new file mode 100644
+index 0000000..ea2d944
+--- /dev/null
++++ b/src/content/models/claude-3-7-sonnet.mdx
+@@ -0,0 +1 @@
++# Claude 3.7 Sonnet (Extended Thinking)
+diff --git a/src/content/models/claude-3-haiku.mdx b/src/content/models/claude-3-haiku.mdx
+new file mode 100644
+index 0000000..f87095d
+--- /dev/null
++++ b/src/content/models/claude-3-haiku.mdx
+@@ -0,0 +1 @@
++# Claude 3 Haiku
+diff --git a/src/content/models/claude-3-opus.mdx b/src/content/models/claude-3-opus.mdx
+new file mode 100644
+index 0000000..85b2ff0
+--- /dev/null
++++ b/src/content/models/claude-3-opus.mdx
+@@ -0,0 +1 @@
++# Claude 3 Opus
+diff --git a/src/content/models/claude-3-sonnet.mdx b/src/content/models/claude-3-sonnet.mdx
+new file mode 100644
+index 0000000..22c102c
+--- /dev/null
++++ b/src/content/models/claude-3-sonnet.mdx
+@@ -0,0 +1 @@
++# Claude 3 Sonnet
+diff --git a/src/content/models/claude-instant.mdx b/src/content/models/claude-instant.mdx
+new file mode 100644
+index 0000000..40576e1
+--- /dev/null
++++ b/src/content/models/claude-instant.mdx
+@@ -0,0 +1 @@
++# Claude Instant
+diff --git a/src/content/models/codestral-mamba.mdx b/src/content/models/codestral-mamba.mdx
+new file mode 100644
+index 0000000..70d4749
+--- /dev/null
++++ b/src/content/models/codestral-mamba.mdx
+@@ -0,0 +1 @@
++# Codestral-Mamba
+diff --git a/src/content/models/codestral.mdx b/src/content/models/codestral.mdx
+new file mode 100644
+index 0000000..3e1a0c8
+--- /dev/null
++++ b/src/content/models/codestral.mdx
+@@ -0,0 +1 @@
++# Codestral (Jan '25)
+diff --git a/src/content/models/command-a.mdx b/src/content/models/command-a.mdx
+new file mode 100644
+index 0000000..e99d826
+--- /dev/null
++++ b/src/content/models/command-a.mdx
+@@ -0,0 +1 @@
++# Command A
+diff --git a/src/content/models/command-r.mdx b/src/content/models/command-r.mdx
+new file mode 100644
+index 0000000..c85b7f5
+--- /dev/null
++++ b/src/content/models/command-r.mdx
+@@ -0,0 +1 @@
++# Command-R+ (Aug '24)
+diff --git a/src/content/models/dbrx-instruct.mdx b/src/content/models/dbrx-instruct.mdx
+new file mode 100644
+index 0000000..26fe85e
+--- /dev/null
++++ b/src/content/models/dbrx-instruct.mdx
+@@ -0,0 +1 @@
++# DBRX Instruct
+diff --git a/src/content/models/deephermes-3-llama-3-1-8b-preview.mdx b/src/content/models/deephermes-3-llama-3-1-8b-preview.mdx
+new file mode 100644
+index 0000000..4caba5e
+--- /dev/null
++++ b/src/content/models/deephermes-3-llama-3-1-8b-preview.mdx
+@@ -0,0 +1 @@
++# DeepHermes 3 - Llama-3.1 8B Preview
+diff --git a/src/content/models/deephermes-3-mistral-24b-preview.mdx b/src/content/models/deephermes-3-mistral-24b-preview.mdx
+new file mode 100644
+index 0000000..1a7b5d3
+--- /dev/null
++++ b/src/content/models/deephermes-3-mistral-24b-preview.mdx
+@@ -0,0 +1 @@
++# DeepHermes 3 - Mistral 24B Preview
+diff --git a/src/content/models/deepseek-coder-v2-lite-instruct.mdx b/src/content/models/deepseek-coder-v2-lite-instruct.mdx
+new file mode 100644
+index 0000000..76b0358
+--- /dev/null
++++ b/src/content/models/deepseek-coder-v2-lite-instruct.mdx
+@@ -0,0 +1 @@
++# DeepSeek Coder V2 Lite Instruct
+diff --git a/src/content/models/deepseek-coder-v2.mdx b/src/content/models/deepseek-coder-v2.mdx
+new file mode 100644
+index 0000000..309668b
+--- /dev/null
++++ b/src/content/models/deepseek-coder-v2.mdx
+@@ -0,0 +1 @@
++# DeepSeek-Coder-V2
+diff --git a/src/content/models/deepseek-llm-67b-chat.mdx b/src/content/models/deepseek-llm-67b-chat.mdx
+new file mode 100644
+index 0000000..d612daa
+--- /dev/null
++++ b/src/content/models/deepseek-llm-67b-chat.mdx
+@@ -0,0 +1 @@
++# DeepSeek LLM 67B Chat (V1)
+diff --git a/src/content/models/deepseek-r1-distill-llama-70b.mdx b/src/content/models/deepseek-r1-distill-llama-70b.mdx
+new file mode 100644
+index 0000000..49930e4
+--- /dev/null
++++ b/src/content/models/deepseek-r1-distill-llama-70b.mdx
+@@ -0,0 +1 @@
++# DeepSeek R1 Distill Llama 70B
+diff --git a/src/content/models/deepseek-r1-distill-llama-8b.mdx b/src/content/models/deepseek-r1-distill-llama-8b.mdx
+new file mode 100644
+index 0000000..f7ca1e4
+--- /dev/null
++++ b/src/content/models/deepseek-r1-distill-llama-8b.mdx
+@@ -0,0 +1 @@
++# DeepSeek R1 Distill Llama 8B
+diff --git a/src/content/models/deepseek-r1-distill-qwen-1-5b.mdx b/src/content/models/deepseek-r1-distill-qwen-1-5b.mdx
+new file mode 100644
+index 0000000..c5d1d90
+--- /dev/null
++++ b/src/content/models/deepseek-r1-distill-qwen-1-5b.mdx
+@@ -0,0 +1 @@
++# DeepSeek R1 Distill Qwen 1.5B
+diff --git a/src/content/models/deepseek-r1-distill-qwen-14b.mdx b/src/content/models/deepseek-r1-distill-qwen-14b.mdx
+new file mode 100644
+index 0000000..0159b93
+--- /dev/null
++++ b/src/content/models/deepseek-r1-distill-qwen-14b.mdx
+@@ -0,0 +1 @@
++# DeepSeek R1 Distill Qwen 14B
+diff --git a/src/content/models/deepseek-r1-distill-qwen-32b.mdx b/src/content/models/deepseek-r1-distill-qwen-32b.mdx
+new file mode 100644
+index 0000000..590d2ad
+--- /dev/null
++++ b/src/content/models/deepseek-r1-distill-qwen-32b.mdx
+@@ -0,0 +1 @@
++# DeepSeek R1 Distill Qwen 32B
+diff --git a/src/content/models/deepseek-r1.mdx b/src/content/models/deepseek-r1.mdx
+new file mode 100644
+index 0000000..6c51f73
+--- /dev/null
++++ b/src/content/models/deepseek-r1.mdx
+@@ -0,0 +1 @@
++# DeepSeek R1
+diff --git a/src/content/models/deepseek-v2-5.mdx b/src/content/models/deepseek-v2-5.mdx
+new file mode 100644
+index 0000000..64b4ce4
+--- /dev/null
++++ b/src/content/models/deepseek-v2-5.mdx
+@@ -0,0 +1 @@
++# DeepSeek-V2.5 (Dec '24)
+diff --git a/src/content/models/deepseek-v2-chat.mdx b/src/content/models/deepseek-v2-chat.mdx
+new file mode 100644
+index 0000000..40d96b5
+--- /dev/null
++++ b/src/content/models/deepseek-v2-chat.mdx
+@@ -0,0 +1 @@
++# DeepSeek-V2-Chat
+diff --git a/src/content/models/deepseek-v3-0324.mdx b/src/content/models/deepseek-v3-0324.mdx
+new file mode 100644
+index 0000000..de753d7
+--- /dev/null
++++ b/src/content/models/deepseek-v3-0324.mdx
+@@ -0,0 +1 @@
++# DeepSeek V3 0324 (Mar' 25)
+diff --git a/src/content/models/deepseek-v3.mdx b/src/content/models/deepseek-v3.mdx
+new file mode 100644
+index 0000000..6528f2b
+--- /dev/null
++++ b/src/content/models/deepseek-v3.mdx
+@@ -0,0 +1 @@
++# DeepSeek V3 (Dec '24)
+diff --git a/src/content/models/gemini-1-0-pro.mdx b/src/content/models/gemini-1-0-pro.mdx
+new file mode 100644
+index 0000000..d5a2d70
+--- /dev/null
++++ b/src/content/models/gemini-1-0-pro.mdx
+@@ -0,0 +1 @@
++# Gemini 1.0 Pro
+diff --git a/src/content/models/gemini-1-0-ultra.mdx b/src/content/models/gemini-1-0-ultra.mdx
+new file mode 100644
+index 0000000..d1cdc33
+--- /dev/null
++++ b/src/content/models/gemini-1-0-ultra.mdx
+@@ -0,0 +1 @@
++# Gemini 1.0 Ultra
+diff --git a/src/content/models/gemini-1-5-flash-8b.mdx b/src/content/models/gemini-1-5-flash-8b.mdx
+new file mode 100644
+index 0000000..1a9b17d
+--- /dev/null
++++ b/src/content/models/gemini-1-5-flash-8b.mdx
+@@ -0,0 +1 @@
++# Gemini 1.5 Flash-8B
+diff --git a/src/content/models/gemini-1-5-flash.mdx b/src/content/models/gemini-1-5-flash.mdx
+new file mode 100644
+index 0000000..8e47f70
+--- /dev/null
++++ b/src/content/models/gemini-1-5-flash.mdx
+@@ -0,0 +1 @@
++# Gemini 1.5 Flash (Sep '24)
+diff --git a/src/content/models/gemini-1-5-pro.mdx b/src/content/models/gemini-1-5-pro.mdx
+new file mode 100644
+index 0000000..90667cd
+--- /dev/null
++++ b/src/content/models/gemini-1-5-pro.mdx
+@@ -0,0 +1 @@
++# Gemini 1.5 Pro (Sep '24)
+diff --git a/src/content/models/gemini-2-0-flash-lite.mdx b/src/content/models/gemini-2-0-flash-lite.mdx
+new file mode 100644
+index 0000000..8ae1952
+--- /dev/null
++++ b/src/content/models/gemini-2-0-flash-lite.mdx
+@@ -0,0 +1 @@
++# Gemini 2.0 Flash-Lite (Feb '25)
+diff --git a/src/content/models/gemini-2-0-flash-thinking-experimental.mdx b/src/content/models/gemini-2-0-flash-thinking-experimental.mdx
+new file mode 100644
+index 0000000..f01343a
+--- /dev/null
++++ b/src/content/models/gemini-2-0-flash-thinking-experimental.mdx
+@@ -0,0 +1 @@
++# Gemini 2.0 Flash Thinking Experimental (Jan '25)
+diff --git a/src/content/models/gemini-2-0-flash.mdx b/src/content/models/gemini-2-0-flash.mdx
+new file mode 100644
+index 0000000..91778c2
+--- /dev/null
++++ b/src/content/models/gemini-2-0-flash.mdx
+@@ -0,0 +1 @@
++# Gemini 2.0 Flash (Feb '25)
+diff --git a/src/content/models/gemini-2-0-pro-experimental.mdx b/src/content/models/gemini-2-0-pro-experimental.mdx
+new file mode 100644
+index 0000000..f64f426
+--- /dev/null
++++ b/src/content/models/gemini-2-0-pro-experimental.mdx
+@@ -0,0 +1 @@
++# Gemini 2.0 Pro Experimental (Feb '25)
+diff --git a/src/content/models/gemini-2-5-flash-preview.mdx b/src/content/models/gemini-2-5-flash-preview.mdx
+new file mode 100644
+index 0000000..3ca4304
+--- /dev/null
++++ b/src/content/models/gemini-2-5-flash-preview.mdx
+@@ -0,0 +1 @@
++# Gemini 2.5 Flash Preview (Reasoning)
+diff --git a/src/content/models/gemini-2-5-pro-preview.mdx b/src/content/models/gemini-2-5-pro-preview.mdx
+new file mode 100644
+index 0000000..25469dc
+--- /dev/null
++++ b/src/content/models/gemini-2-5-pro-preview.mdx
+@@ -0,0 +1 @@
++# Gemini 2.5 Pro Preview (Mar' 25)
+diff --git a/src/content/models/gemma-2-27b.mdx b/src/content/models/gemma-2-27b.mdx
+new file mode 100644
+index 0000000..0252fa4
+--- /dev/null
++++ b/src/content/models/gemma-2-27b.mdx
+@@ -0,0 +1 @@
++# Gemma 2 27B
+diff --git a/src/content/models/gemma-2-9b.mdx b/src/content/models/gemma-2-9b.mdx
+new file mode 100644
+index 0000000..ef9853f
+--- /dev/null
++++ b/src/content/models/gemma-2-9b.mdx
+@@ -0,0 +1 @@
++# Gemma 2 9B
+diff --git a/src/content/models/gemma-3-12b-instruct.mdx b/src/content/models/gemma-3-12b-instruct.mdx
+new file mode 100644
+index 0000000..a9ddf05
+--- /dev/null
++++ b/src/content/models/gemma-3-12b-instruct.mdx
+@@ -0,0 +1 @@
++# Gemma 3 12B Instruct
+diff --git a/src/content/models/gemma-3-1b-instruct.mdx b/src/content/models/gemma-3-1b-instruct.mdx
+new file mode 100644
+index 0000000..df63116
+--- /dev/null
++++ b/src/content/models/gemma-3-1b-instruct.mdx
+@@ -0,0 +1 @@
++# Gemma 3 1B Instruct
+diff --git a/src/content/models/gemma-3-27b-instruct.mdx b/src/content/models/gemma-3-27b-instruct.mdx
+new file mode 100644
+index 0000000..24066e7
+--- /dev/null
++++ b/src/content/models/gemma-3-27b-instruct.mdx
+@@ -0,0 +1 @@
++# Gemma 3 27B Instruct
+diff --git a/src/content/models/gemma-3-4b-instruct.mdx b/src/content/models/gemma-3-4b-instruct.mdx
+new file mode 100644
+index 0000000..71863f6
+--- /dev/null
++++ b/src/content/models/gemma-3-4b-instruct.mdx
+@@ -0,0 +1 @@
++# Gemma 3 4B Instruct
+diff --git a/src/content/models/gpt-3-5-turbo.mdx b/src/content/models/gpt-3-5-turbo.mdx
+new file mode 100644
+index 0000000..3c2fccc
+--- /dev/null
++++ b/src/content/models/gpt-3-5-turbo.mdx
+@@ -0,0 +1 @@
++# GPT-3.5 Turbo
+diff --git a/src/content/models/gpt-4-1-mini.mdx b/src/content/models/gpt-4-1-mini.mdx
+new file mode 100644
+index 0000000..7038292
+--- /dev/null
++++ b/src/content/models/gpt-4-1-mini.mdx
+@@ -0,0 +1 @@
++# GPT-4.1 mini
+diff --git a/src/content/models/gpt-4-1-nano.mdx b/src/content/models/gpt-4-1-nano.mdx
+new file mode 100644
+index 0000000..7f45956
+--- /dev/null
++++ b/src/content/models/gpt-4-1-nano.mdx
+@@ -0,0 +1 @@
++# GPT-4.1 nano
+diff --git a/src/content/models/gpt-4-1.mdx b/src/content/models/gpt-4-1.mdx
+new file mode 100644
+index 0000000..b78d160
+--- /dev/null
++++ b/src/content/models/gpt-4-1.mdx
+@@ -0,0 +1 @@
++# GPT-4.1
+diff --git a/src/content/models/gpt-4-5.mdx b/src/content/models/gpt-4-5.mdx
+new file mode 100644
+index 0000000..912f3f9
+--- /dev/null
++++ b/src/content/models/gpt-4-5.mdx
+@@ -0,0 +1 @@
++# GPT-4.5 (Preview)
+diff --git a/src/content/models/gpt-4-turbo.mdx b/src/content/models/gpt-4-turbo.mdx
+new file mode 100644
+index 0000000..6b29dfe
+--- /dev/null
++++ b/src/content/models/gpt-4-turbo.mdx
+@@ -0,0 +1 @@
++# GPT-4 Turbo
+diff --git a/src/content/models/gpt-4.mdx b/src/content/models/gpt-4.mdx
+new file mode 100644
+index 0000000..6b69617
+--- /dev/null
++++ b/src/content/models/gpt-4.mdx
+@@ -0,0 +1 @@
++# GPT-4
+diff --git a/src/content/models/gpt-4o-mini-realtime.mdx b/src/content/models/gpt-4o-mini-realtime.mdx
+new file mode 100644
+index 0000000..69c4663
+--- /dev/null
++++ b/src/content/models/gpt-4o-mini-realtime.mdx
+@@ -0,0 +1 @@
++# GPT-4o mini Realtime (Dec '24)
+diff --git a/src/content/models/gpt-4o-mini.mdx b/src/content/models/gpt-4o-mini.mdx
+new file mode 100644
+index 0000000..117d5f9
+--- /dev/null
++++ b/src/content/models/gpt-4o-mini.mdx
+@@ -0,0 +1 @@
++# GPT-4o mini
+diff --git a/src/content/models/gpt-4o-realtime.mdx b/src/content/models/gpt-4o-realtime.mdx
+new file mode 100644
+index 0000000..a8de669
+--- /dev/null
++++ b/src/content/models/gpt-4o-realtime.mdx
+@@ -0,0 +1 @@
++# GPT-4o Realtime (Dec '24)
+diff --git a/src/content/models/gpt-4o.mdx b/src/content/models/gpt-4o.mdx
+new file mode 100644
+index 0000000..82125f6
+--- /dev/null
++++ b/src/content/models/gpt-4o.mdx
+@@ -0,0 +1 @@
++# GPT-4o (ChatGPT)
+diff --git a/src/content/models/grok-2.mdx b/src/content/models/grok-2.mdx
+new file mode 100644
+index 0000000..cc83f33
+--- /dev/null
++++ b/src/content/models/grok-2.mdx
+@@ -0,0 +1 @@
++# Grok 2 (Dec '24)
+diff --git a/src/content/models/grok-3-mini-reasoning.mdx b/src/content/models/grok-3-mini-reasoning.mdx
+new file mode 100644
+index 0000000..1526175
+--- /dev/null
++++ b/src/content/models/grok-3-mini-reasoning.mdx
+@@ -0,0 +1 @@
++# Grok 3 mini Reasoning (high)
+diff --git a/src/content/models/grok-3-reasoning-beta.mdx b/src/content/models/grok-3-reasoning-beta.mdx
+new file mode 100644
+index 0000000..a8e21c9
+--- /dev/null
++++ b/src/content/models/grok-3-reasoning-beta.mdx
+@@ -0,0 +1 @@
++# Grok 3 Reasoning Beta
+diff --git a/src/content/models/grok-3.mdx b/src/content/models/grok-3.mdx
+new file mode 100644
+index 0000000..6404d6b
+--- /dev/null
++++ b/src/content/models/grok-3.mdx
+@@ -0,0 +1 @@
++# Grok 3
+diff --git a/src/content/models/grok-beta.mdx b/src/content/models/grok-beta.mdx
+new file mode 100644
+index 0000000..2839ad1
+--- /dev/null
++++ b/src/content/models/grok-beta.mdx
+@@ -0,0 +1 @@
++# Grok Beta
+diff --git a/src/content/models/hermes-3-llama-3-1-70b.mdx b/src/content/models/hermes-3-llama-3-1-70b.mdx
+new file mode 100644
+index 0000000..f62d0ce
+--- /dev/null
++++ b/src/content/models/hermes-3-llama-3-1-70b.mdx
+@@ -0,0 +1 @@
++# Hermes 3 - Llama-3.1 70B
+diff --git a/src/content/models/jamba-1-5-large.mdx b/src/content/models/jamba-1-5-large.mdx
+new file mode 100644
+index 0000000..4493d41
+--- /dev/null
++++ b/src/content/models/jamba-1-5-large.mdx
+@@ -0,0 +1 @@
++# Jamba 1.5 Large
+diff --git a/src/content/models/jamba-1-5-mini.mdx b/src/content/models/jamba-1-5-mini.mdx
+new file mode 100644
+index 0000000..760cf2d
+--- /dev/null
++++ b/src/content/models/jamba-1-5-mini.mdx
+@@ -0,0 +1 @@
++# Jamba 1.5 Mini
+diff --git a/src/content/models/jamba-1-6-large.mdx b/src/content/models/jamba-1-6-large.mdx
+new file mode 100644
+index 0000000..59d4ce3
+--- /dev/null
++++ b/src/content/models/jamba-1-6-large.mdx
+@@ -0,0 +1 @@
++# Jamba 1.6 Large
+diff --git a/src/content/models/jamba-1-6-mini.mdx b/src/content/models/jamba-1-6-mini.mdx
+new file mode 100644
+index 0000000..e7f4056
+--- /dev/null
++++ b/src/content/models/jamba-1-6-mini.mdx
+@@ -0,0 +1 @@
++# Jamba 1.6 Mini
+diff --git a/src/content/models/jamba-instruct.mdx b/src/content/models/jamba-instruct.mdx
+new file mode 100644
+index 0000000..92424e0
+--- /dev/null
++++ b/src/content/models/jamba-instruct.mdx
+@@ -0,0 +1 @@
++# Jamba Instruct
+diff --git a/src/content/models/lfm-40b.mdx b/src/content/models/lfm-40b.mdx
+new file mode 100644
+index 0000000..1e1b341
+--- /dev/null
++++ b/src/content/models/lfm-40b.mdx
+@@ -0,0 +1 @@
++# LFM 40B
+diff --git a/src/content/models/llama-2-chat-13b.mdx b/src/content/models/llama-2-chat-13b.mdx
+new file mode 100644
+index 0000000..4670a21
+--- /dev/null
++++ b/src/content/models/llama-2-chat-13b.mdx
+@@ -0,0 +1 @@
++# Llama 2 Chat 13B
+diff --git a/src/content/models/llama-2-chat-70b.mdx b/src/content/models/llama-2-chat-70b.mdx
+new file mode 100644
+index 0000000..de9ab49
+--- /dev/null
++++ b/src/content/models/llama-2-chat-70b.mdx
+@@ -0,0 +1 @@
++# Llama 2 Chat 70B
+diff --git a/src/content/models/llama-2-chat-7b.mdx b/src/content/models/llama-2-chat-7b.mdx
+new file mode 100644
+index 0000000..7779d15
+--- /dev/null
++++ b/src/content/models/llama-2-chat-7b.mdx
+@@ -0,0 +1 @@
++# Llama 2 Chat 7B
+diff --git a/src/content/models/llama-3-1-instruct-405b.mdx b/src/content/models/llama-3-1-instruct-405b.mdx
+new file mode 100644
+index 0000000..605131d
+--- /dev/null
++++ b/src/content/models/llama-3-1-instruct-405b.mdx
+@@ -0,0 +1 @@
++# Llama 3.1 Instruct 405B
+diff --git a/src/content/models/llama-3-1-instruct-70b.mdx b/src/content/models/llama-3-1-instruct-70b.mdx
+new file mode 100644
+index 0000000..3858f0f
+--- /dev/null
++++ b/src/content/models/llama-3-1-instruct-70b.mdx
+@@ -0,0 +1 @@
++# Llama 3.1 Instruct 70B
+diff --git a/src/content/models/llama-3-1-instruct-8b.mdx b/src/content/models/llama-3-1-instruct-8b.mdx
+new file mode 100644
+index 0000000..76d6de3
+--- /dev/null
++++ b/src/content/models/llama-3-1-instruct-8b.mdx
+@@ -0,0 +1 @@
++# Llama 3.1 Instruct 8B
+diff --git a/src/content/models/llama-3-1-nemotron-instruct-70b.mdx b/src/content/models/llama-3-1-nemotron-instruct-70b.mdx
+new file mode 100644
+index 0000000..9f1ed58
+--- /dev/null
++++ b/src/content/models/llama-3-1-nemotron-instruct-70b.mdx
+@@ -0,0 +1 @@
++# Llama 3.1 Nemotron Instruct 70B
+diff --git a/src/content/models/llama-3-1-nemotron-ultra-253b-v1.mdx b/src/content/models/llama-3-1-nemotron-ultra-253b-v1.mdx
+new file mode 100644
+index 0000000..555d16e
+--- /dev/null
++++ b/src/content/models/llama-3-1-nemotron-ultra-253b-v1.mdx
+@@ -0,0 +1 @@
++# Llama 3.1 Nemotron Ultra 253B v1 (Reasoning)
+diff --git a/src/content/models/llama-3-1-tulu3-405b.mdx b/src/content/models/llama-3-1-tulu3-405b.mdx
+new file mode 100644
+index 0000000..6ceb188
+--- /dev/null
++++ b/src/content/models/llama-3-1-tulu3-405b.mdx
+@@ -0,0 +1 @@
++# Llama 3.1 Tulu3 405B
+diff --git a/src/content/models/llama-3-2-instruct-11b.mdx b/src/content/models/llama-3-2-instruct-11b.mdx
+new file mode 100644
+index 0000000..d23ba3d
+--- /dev/null
++++ b/src/content/models/llama-3-2-instruct-11b.mdx
+@@ -0,0 +1 @@
++# Llama 3.2 Instruct 11B (Vision)
+diff --git a/src/content/models/llama-3-2-instruct-1b.mdx b/src/content/models/llama-3-2-instruct-1b.mdx
+new file mode 100644
+index 0000000..a1b5a86
+--- /dev/null
++++ b/src/content/models/llama-3-2-instruct-1b.mdx
+@@ -0,0 +1 @@
++# Llama 3.2 Instruct 1B
+diff --git a/src/content/models/llama-3-2-instruct-3b.mdx b/src/content/models/llama-3-2-instruct-3b.mdx
+new file mode 100644
+index 0000000..b3fbb77
+--- /dev/null
++++ b/src/content/models/llama-3-2-instruct-3b.mdx
+@@ -0,0 +1 @@
++# Llama 3.2 Instruct 3B
+diff --git a/src/content/models/llama-3-2-instruct-90b.mdx b/src/content/models/llama-3-2-instruct-90b.mdx
+new file mode 100644
+index 0000000..4263f4e
+--- /dev/null
++++ b/src/content/models/llama-3-2-instruct-90b.mdx
+@@ -0,0 +1 @@
++# Llama 3.2 Instruct 90B (Vision)
+diff --git a/src/content/models/llama-3-3-instruct-70b.mdx b/src/content/models/llama-3-3-instruct-70b.mdx
+new file mode 100644
+index 0000000..2f1e5a4
+--- /dev/null
++++ b/src/content/models/llama-3-3-instruct-70b.mdx
+@@ -0,0 +1 @@
++# Llama 3.3 Instruct 70B
+diff --git a/src/content/models/llama-3-3-nemotron-super-49b-v1.mdx b/src/content/models/llama-3-3-nemotron-super-49b-v1.mdx
+new file mode 100644
+index 0000000..fbc01e7
+--- /dev/null
++++ b/src/content/models/llama-3-3-nemotron-super-49b-v1.mdx
+@@ -0,0 +1 @@
++# Llama 3.3 Nemotron Super 49B v1
+diff --git a/src/content/models/llama-3-instruct-70b.mdx b/src/content/models/llama-3-instruct-70b.mdx
+new file mode 100644
+index 0000000..2b97e65
+--- /dev/null
++++ b/src/content/models/llama-3-instruct-70b.mdx
+@@ -0,0 +1 @@
++# Llama 3 Instruct 70B
+diff --git a/src/content/models/llama-3-instruct-8b.mdx b/src/content/models/llama-3-instruct-8b.mdx
+new file mode 100644
+index 0000000..9a43101
+--- /dev/null
++++ b/src/content/models/llama-3-instruct-8b.mdx
+@@ -0,0 +1 @@
++# Llama 3 Instruct 8B
+diff --git a/src/content/models/llama-4-maverick.mdx b/src/content/models/llama-4-maverick.mdx
+new file mode 100644
+index 0000000..44f2456
+--- /dev/null
++++ b/src/content/models/llama-4-maverick.mdx
+@@ -0,0 +1 @@
++# Llama 4 Maverick
+diff --git a/src/content/models/llama-4-scout.mdx b/src/content/models/llama-4-scout.mdx
+new file mode 100644
+index 0000000..d0dcc48
+--- /dev/null
++++ b/src/content/models/llama-4-scout.mdx
+@@ -0,0 +1 @@
++# Llama 4 Scout
+diff --git a/src/content/models/llama-65b.mdx b/src/content/models/llama-65b.mdx
+new file mode 100644
+index 0000000..8e519ac
+--- /dev/null
++++ b/src/content/models/llama-65b.mdx
+@@ -0,0 +1 @@
++# Llama 65B
+diff --git a/src/content/models/minimax-text-01.mdx b/src/content/models/minimax-text-01.mdx
+new file mode 100644
+index 0000000..bf14f5c
+--- /dev/null
++++ b/src/content/models/minimax-text-01.mdx
+@@ -0,0 +1 @@
++# MiniMax-Text-01
+diff --git a/src/content/models/ministral-3b.mdx b/src/content/models/ministral-3b.mdx
+new file mode 100644
+index 0000000..c193249
+--- /dev/null
++++ b/src/content/models/ministral-3b.mdx
+@@ -0,0 +1 @@
++# Ministral 3B
+diff --git a/src/content/models/ministral-8b.mdx b/src/content/models/ministral-8b.mdx
+new file mode 100644
+index 0000000..59d8c70
+--- /dev/null
++++ b/src/content/models/ministral-8b.mdx
+@@ -0,0 +1 @@
++# Ministral 8B
+diff --git a/src/content/models/mistral-7b-instruct.mdx b/src/content/models/mistral-7b-instruct.mdx
+new file mode 100644
+index 0000000..4836323
+--- /dev/null
++++ b/src/content/models/mistral-7b-instruct.mdx
+@@ -0,0 +1 @@
++# Mistral 7B Instruct
+diff --git a/src/content/models/mistral-large-2.mdx b/src/content/models/mistral-large-2.mdx
+new file mode 100644
+index 0000000..d9856c3
+--- /dev/null
++++ b/src/content/models/mistral-large-2.mdx
+@@ -0,0 +1 @@
++# Mistral Large 2 (Nov '24)
+diff --git a/src/content/models/mistral-large.mdx b/src/content/models/mistral-large.mdx
+new file mode 100644
+index 0000000..d39b74f
+--- /dev/null
++++ b/src/content/models/mistral-large.mdx
+@@ -0,0 +1 @@
++# Mistral Large (Feb '24)
+diff --git a/src/content/models/mistral-medium-3.mdx b/src/content/models/mistral-medium-3.mdx
+new file mode 100644
+index 0000000..6d267bd
+--- /dev/null
++++ b/src/content/models/mistral-medium-3.mdx
+@@ -0,0 +1 @@
++# Mistral Medium 3
+diff --git a/src/content/models/mistral-medium.mdx b/src/content/models/mistral-medium.mdx
+new file mode 100644
+index 0000000..9cd3c6e
+--- /dev/null
++++ b/src/content/models/mistral-medium.mdx
+@@ -0,0 +1 @@
++# Mistral Medium
+diff --git a/src/content/models/mistral-nemo.mdx b/src/content/models/mistral-nemo.mdx
+new file mode 100644
+index 0000000..acc1b51
+--- /dev/null
++++ b/src/content/models/mistral-nemo.mdx
+@@ -0,0 +1 @@
++# Mistral NeMo
+diff --git a/src/content/models/mistral-saba.mdx b/src/content/models/mistral-saba.mdx
+new file mode 100644
+index 0000000..a616ac1
+--- /dev/null
++++ b/src/content/models/mistral-saba.mdx
+@@ -0,0 +1 @@
++# Mistral Saba
+diff --git a/src/content/models/mistral-small-3-1.mdx b/src/content/models/mistral-small-3-1.mdx
+new file mode 100644
+index 0000000..9e0407d
+--- /dev/null
++++ b/src/content/models/mistral-small-3-1.mdx
+@@ -0,0 +1 @@
++# Mistral Small 3.1
+diff --git a/src/content/models/mistral-small-3.mdx b/src/content/models/mistral-small-3.mdx
+new file mode 100644
+index 0000000..8facddd
+--- /dev/null
++++ b/src/content/models/mistral-small-3.mdx
+@@ -0,0 +1 @@
++# Mistral Small 3
+diff --git a/src/content/models/mistral-small.mdx b/src/content/models/mistral-small.mdx
+new file mode 100644
+index 0000000..ea2bf58
+--- /dev/null
++++ b/src/content/models/mistral-small.mdx
+@@ -0,0 +1 @@
++# Mistral Small (Sep '24)
+diff --git a/src/content/models/mixtral-8x22b-instruct.mdx b/src/content/models/mixtral-8x22b-instruct.mdx
+new file mode 100644
+index 0000000..1a84933
+--- /dev/null
++++ b/src/content/models/mixtral-8x22b-instruct.mdx
+@@ -0,0 +1 @@
++# Mixtral 8x22B Instruct
+diff --git a/src/content/models/mixtral-8x7b-instruct.mdx b/src/content/models/mixtral-8x7b-instruct.mdx
+new file mode 100644
+index 0000000..11a04bb
+--- /dev/null
++++ b/src/content/models/mixtral-8x7b-instruct.mdx
+@@ -0,0 +1 @@
++# Mixtral 8x7B Instruct
+diff --git a/src/content/models/nova-lite.mdx b/src/content/models/nova-lite.mdx
+new file mode 100644
+index 0000000..7686265
+--- /dev/null
++++ b/src/content/models/nova-lite.mdx
+@@ -0,0 +1 @@
++# Nova Lite
+diff --git a/src/content/models/nova-micro.mdx b/src/content/models/nova-micro.mdx
+new file mode 100644
+index 0000000..d2d1efd
+--- /dev/null
++++ b/src/content/models/nova-micro.mdx
+@@ -0,0 +1 @@
++# Nova Micro
+diff --git a/src/content/models/nova-premier.mdx b/src/content/models/nova-premier.mdx
+new file mode 100644
+index 0000000..b01290f
+--- /dev/null
++++ b/src/content/models/nova-premier.mdx
+@@ -0,0 +1 @@
++# Nova Premier
+diff --git a/src/content/models/nova-pro.mdx b/src/content/models/nova-pro.mdx
+new file mode 100644
+index 0000000..429111c
+--- /dev/null
++++ b/src/content/models/nova-pro.mdx
+@@ -0,0 +1 @@
++# Nova Pro
+diff --git a/src/content/models/o1-mini.mdx b/src/content/models/o1-mini.mdx
+new file mode 100644
+index 0000000..b99fcd4
+--- /dev/null
++++ b/src/content/models/o1-mini.mdx
+@@ -0,0 +1 @@
++# o1-mini
+diff --git a/src/content/models/o1-preview.mdx b/src/content/models/o1-preview.mdx
+new file mode 100644
+index 0000000..bc078a3
+--- /dev/null
++++ b/src/content/models/o1-preview.mdx
+@@ -0,0 +1 @@
++# o1-preview
+diff --git a/src/content/models/o1-pro.mdx b/src/content/models/o1-pro.mdx
+new file mode 100644
+index 0000000..83dc020
+--- /dev/null
++++ b/src/content/models/o1-pro.mdx
+@@ -0,0 +1 @@
++# o1-pro
+diff --git a/src/content/models/o1.mdx b/src/content/models/o1.mdx
+new file mode 100644
+index 0000000..a64c582
+--- /dev/null
++++ b/src/content/models/o1.mdx
+@@ -0,0 +1 @@
++# o1
+diff --git a/src/content/models/o3-mini.mdx b/src/content/models/o3-mini.mdx
+new file mode 100644
+index 0000000..bf29472
+--- /dev/null
++++ b/src/content/models/o3-mini.mdx
+@@ -0,0 +1 @@
++# o3-mini
+diff --git a/src/content/models/o3.mdx b/src/content/models/o3.mdx
+new file mode 100644
+index 0000000..b063a67
+--- /dev/null
++++ b/src/content/models/o3.mdx
+@@ -0,0 +1 @@
++# o3
+diff --git a/src/content/models/o4-mini.mdx b/src/content/models/o4-mini.mdx
+new file mode 100644
+index 0000000..34a2a57
+--- /dev/null
++++ b/src/content/models/o4-mini.mdx
+@@ -0,0 +1 @@
++# o4-mini (high)
+diff --git a/src/content/models/openchat-3-5.mdx b/src/content/models/openchat-3-5.mdx
+new file mode 100644
+index 0000000..9c313e0
+--- /dev/null
++++ b/src/content/models/openchat-3-5.mdx
+@@ -0,0 +1 @@
++# OpenChat 3.5 (1210)
+diff --git a/src/content/models/palm-2.mdx b/src/content/models/palm-2.mdx
+new file mode 100644
+index 0000000..3400d7d
+--- /dev/null
++++ b/src/content/models/palm-2.mdx
+@@ -0,0 +1 @@
++# PALM-2
+diff --git a/src/content/models/phi-3-medium-instruct-14b.mdx b/src/content/models/phi-3-medium-instruct-14b.mdx
+new file mode 100644
+index 0000000..aec511c
+--- /dev/null
++++ b/src/content/models/phi-3-medium-instruct-14b.mdx
+@@ -0,0 +1 @@
++# Phi-3 Medium Instruct 14B
+diff --git a/src/content/models/phi-3-mini-instruct-3-8b.mdx b/src/content/models/phi-3-mini-instruct-3-8b.mdx
+new file mode 100644
+index 0000000..a447178
+--- /dev/null
++++ b/src/content/models/phi-3-mini-instruct-3-8b.mdx
+@@ -0,0 +1 @@
++# Phi-3 Mini Instruct 3.8B
+diff --git a/src/content/models/phi-4-mini-instruct.mdx b/src/content/models/phi-4-mini-instruct.mdx
+new file mode 100644
+index 0000000..e694964
+--- /dev/null
++++ b/src/content/models/phi-4-mini-instruct.mdx
+@@ -0,0 +1 @@
++# Phi-4 Mini Instruct
+diff --git a/src/content/models/phi-4-multimodal-instruct.mdx b/src/content/models/phi-4-multimodal-instruct.mdx
+new file mode 100644
+index 0000000..b609001
+--- /dev/null
++++ b/src/content/models/phi-4-multimodal-instruct.mdx
+@@ -0,0 +1 @@
++# Phi-4 Multimodal Instruct
+diff --git a/src/content/models/phi-4.mdx b/src/content/models/phi-4.mdx
+new file mode 100644
+index 0000000..378d510
+--- /dev/null
++++ b/src/content/models/phi-4.mdx
+@@ -0,0 +1 @@
++# Phi-4
+diff --git a/src/content/models/pixtral-12b.mdx b/src/content/models/pixtral-12b.mdx
+new file mode 100644
+index 0000000..f811b3e
+--- /dev/null
++++ b/src/content/models/pixtral-12b.mdx
+@@ -0,0 +1 @@
++# Pixtral 12B (2409)
+diff --git a/src/content/models/pixtral-large.mdx b/src/content/models/pixtral-large.mdx
+new file mode 100644
+index 0000000..8932722
+--- /dev/null
++++ b/src/content/models/pixtral-large.mdx
+@@ -0,0 +1 @@
++# Pixtral Large
+diff --git a/src/content/models/qwen-chat-14b.mdx b/src/content/models/qwen-chat-14b.mdx
+new file mode 100644
+index 0000000..ab1ed29
+--- /dev/null
++++ b/src/content/models/qwen-chat-14b.mdx
+@@ -0,0 +1 @@
++# Qwen Chat 14B
+diff --git a/src/content/models/qwen-chat-72b.mdx b/src/content/models/qwen-chat-72b.mdx
+new file mode 100644
+index 0000000..2934408
+--- /dev/null
++++ b/src/content/models/qwen-chat-72b.mdx
+@@ -0,0 +1 @@
++# Qwen Chat 72B
+diff --git a/src/content/models/qwen1-5-chat-110b.mdx b/src/content/models/qwen1-5-chat-110b.mdx
+new file mode 100644
+index 0000000..b8e0b32
+--- /dev/null
++++ b/src/content/models/qwen1-5-chat-110b.mdx
+@@ -0,0 +1 @@
++# Qwen1.5 Chat 110B
+diff --git a/src/content/models/qwen2-5-coder-instruct-32b.mdx b/src/content/models/qwen2-5-coder-instruct-32b.mdx
+new file mode 100644
+index 0000000..3a3cefb
+--- /dev/null
++++ b/src/content/models/qwen2-5-coder-instruct-32b.mdx
+@@ -0,0 +1 @@
++# Qwen2.5 Coder Instruct 32B
+diff --git a/src/content/models/qwen2-5-coder-instruct-7b.mdx b/src/content/models/qwen2-5-coder-instruct-7b.mdx
+new file mode 100644
+index 0000000..2d2b7bd
+--- /dev/null
++++ b/src/content/models/qwen2-5-coder-instruct-7b.mdx
+@@ -0,0 +1 @@
++# Qwen2.5 Coder Instruct 7B
+diff --git a/src/content/models/qwen2-5-instruct-32b.mdx b/src/content/models/qwen2-5-instruct-32b.mdx
+new file mode 100644
+index 0000000..b6c7c96
+--- /dev/null
++++ b/src/content/models/qwen2-5-instruct-32b.mdx
+@@ -0,0 +1 @@
++# Qwen2.5 Instruct 32B
+diff --git a/src/content/models/qwen2-5-instruct-72b.mdx b/src/content/models/qwen2-5-instruct-72b.mdx
+new file mode 100644
+index 0000000..88cfde6
+--- /dev/null
++++ b/src/content/models/qwen2-5-instruct-72b.mdx
+@@ -0,0 +1 @@
++# Qwen2.5 Instruct 72B
+diff --git a/src/content/models/qwen2-5-max.mdx b/src/content/models/qwen2-5-max.mdx
+new file mode 100644
+index 0000000..133c9d8
+--- /dev/null
++++ b/src/content/models/qwen2-5-max.mdx
+@@ -0,0 +1 @@
++# Qwen2.5 Max
+diff --git a/src/content/models/qwen2-5-turbo.mdx b/src/content/models/qwen2-5-turbo.mdx
+new file mode 100644
+index 0000000..587197e
+--- /dev/null
++++ b/src/content/models/qwen2-5-turbo.mdx
+@@ -0,0 +1 @@
++# Qwen2.5 Turbo
+diff --git a/src/content/models/qwen2-instruct-72b.mdx b/src/content/models/qwen2-instruct-72b.mdx
+new file mode 100644
+index 0000000..244ee89
+--- /dev/null
++++ b/src/content/models/qwen2-instruct-72b.mdx
+@@ -0,0 +1 @@
++# Qwen2 Instruct 72B
+diff --git a/src/content/models/qwen3-0-6b.mdx b/src/content/models/qwen3-0-6b.mdx
+new file mode 100644
+index 0000000..3e097f0
+--- /dev/null
++++ b/src/content/models/qwen3-0-6b.mdx
+@@ -0,0 +1 @@
++# Qwen3 0.6B
+diff --git a/src/content/models/qwen3-1-7b.mdx b/src/content/models/qwen3-1-7b.mdx
+new file mode 100644
+index 0000000..be1b507
+--- /dev/null
++++ b/src/content/models/qwen3-1-7b.mdx
+@@ -0,0 +1 @@
++# Qwen3 1.7B
+diff --git a/src/content/models/qwen3-14b.mdx b/src/content/models/qwen3-14b.mdx
+new file mode 100644
+index 0000000..cd40fd6
+--- /dev/null
++++ b/src/content/models/qwen3-14b.mdx
+@@ -0,0 +1 @@
++# Qwen3 14B (Reasoning)
+diff --git a/src/content/models/qwen3-235b-a22b.mdx b/src/content/models/qwen3-235b-a22b.mdx
+new file mode 100644
+index 0000000..b59b515
+--- /dev/null
++++ b/src/content/models/qwen3-235b-a22b.mdx
+@@ -0,0 +1 @@
++# Qwen3 235B A22B
+diff --git a/src/content/models/qwen3-30b-a3b.mdx b/src/content/models/qwen3-30b-a3b.mdx
+new file mode 100644
+index 0000000..c70bf1e
+--- /dev/null
++++ b/src/content/models/qwen3-30b-a3b.mdx
+@@ -0,0 +1 @@
++# Qwen3 30B A3B
+diff --git a/src/content/models/qwen3-32b.mdx b/src/content/models/qwen3-32b.mdx
+new file mode 100644
+index 0000000..e60c00c
+--- /dev/null
++++ b/src/content/models/qwen3-32b.mdx
+@@ -0,0 +1 @@
++# Qwen3 32B
+diff --git a/src/content/models/qwen3-4b.mdx b/src/content/models/qwen3-4b.mdx
+new file mode 100644
+index 0000000..6f437a8
+--- /dev/null
++++ b/src/content/models/qwen3-4b.mdx
+@@ -0,0 +1 @@
++# Qwen3 4B
+diff --git a/src/content/models/qwen3-8b.mdx b/src/content/models/qwen3-8b.mdx
+new file mode 100644
+index 0000000..27376ed
+--- /dev/null
++++ b/src/content/models/qwen3-8b.mdx
+@@ -0,0 +1 @@
++# Qwen3 8B
+diff --git a/src/content/models/qwq-32b-preview.mdx b/src/content/models/qwq-32b-preview.mdx
+new file mode 100644
+index 0000000..b475579
+--- /dev/null
++++ b/src/content/models/qwq-32b-preview.mdx
+@@ -0,0 +1 @@
++# QwQ 32B-Preview
+diff --git a/src/content/models/qwq-32b.mdx b/src/content/models/qwq-32b.mdx
+new file mode 100644
+index 0000000..5c993bd
+--- /dev/null
++++ b/src/content/models/qwq-32b.mdx
+@@ -0,0 +1 @@
++# QwQ 32B
+diff --git a/src/content/models/r1-1776.mdx b/src/content/models/r1-1776.mdx
+new file mode 100644
+index 0000000..5cf037d
+--- /dev/null
++++ b/src/content/models/r1-1776.mdx
+@@ -0,0 +1 @@
++# R1 1776
+diff --git a/src/content/models/reka-core.mdx b/src/content/models/reka-core.mdx
+new file mode 100644
+index 0000000..49f90b1
+--- /dev/null
++++ b/src/content/models/reka-core.mdx
+@@ -0,0 +1 @@
++# Reka Core
+diff --git a/src/content/models/reka-edge.mdx b/src/content/models/reka-edge.mdx
+new file mode 100644
+index 0000000..8efe4b2
+--- /dev/null
++++ b/src/content/models/reka-edge.mdx
+@@ -0,0 +1 @@
++# Reka Edge
+diff --git a/src/content/models/reka-flash-3.mdx b/src/content/models/reka-flash-3.mdx
+new file mode 100644
+index 0000000..bab3c50
+--- /dev/null
++++ b/src/content/models/reka-flash-3.mdx
+@@ -0,0 +1 @@
++# Reka Flash 3
+diff --git a/src/content/models/reka-flash.mdx b/src/content/models/reka-flash.mdx
+new file mode 100644
+index 0000000..55604b3
+--- /dev/null
++++ b/src/content/models/reka-flash.mdx
+@@ -0,0 +1 @@
++# Reka Flash (Sep '24)
+diff --git a/src/content/models/solar-mini.mdx b/src/content/models/solar-mini.mdx
+new file mode 100644
+index 0000000..48c5667
+--- /dev/null
++++ b/src/content/models/solar-mini.mdx
+@@ -0,0 +1 @@
++# Solar Mini
+diff --git a/src/content/models/sonar-pro.mdx b/src/content/models/sonar-pro.mdx
+new file mode 100644
+index 0000000..7f109a8
+--- /dev/null
++++ b/src/content/models/sonar-pro.mdx
+@@ -0,0 +1 @@
++# Sonar Pro
+diff --git a/src/content/models/sonar-reasoning-pro.mdx b/src/content/models/sonar-reasoning-pro.mdx
+new file mode 100644
+index 0000000..001f9c0
+--- /dev/null
++++ b/src/content/models/sonar-reasoning-pro.mdx
+@@ -0,0 +1 @@
++# Sonar Reasoning Pro
+diff --git a/src/content/models/sonar-reasoning.mdx b/src/content/models/sonar-reasoning.mdx
+new file mode 100644
+index 0000000..f3d76bb
+--- /dev/null
++++ b/src/content/models/sonar-reasoning.mdx
+@@ -0,0 +1 @@
++# Sonar Reasoning
+diff --git a/src/content/models/sonar.mdx b/src/content/models/sonar.mdx
+new file mode 100644
+index 0000000..56b242c
+--- /dev/null
++++ b/src/content/models/sonar.mdx
+@@ -0,0 +1 @@
++# Sonar
+diff --git a/src/content/models/yi-large.mdx b/src/content/models/yi-large.mdx
+new file mode 100644
+index 0000000..ac5f90c
+--- /dev/null
++++ b/src/content/models/yi-large.mdx
+@@ -0,0 +1 @@
++# Yi-Large
+diff --git a/src/data/models.ts b/src/data/models.ts
+new file mode 100644
+index 0000000..3586154
+--- /dev/null
++++ b/src/data/models.ts
+@@ -0,0 +1,202 @@
++export const modelNames = [
++  "o1",
++  "o3-mini",
++  "GPT-4o mini",
++  "GPT-4.1",
++  "GPT-4o mini Realtime (Dec '24)",
++  "o3",
++  "o4-mini (high)",
++  "o3-mini (high)",
++  "o1-pro",
++  "GPT-4.1 mini",
++  "GPT-4o Realtime (Dec '24)",
++  "GPT-4.1 nano",
++  "GPT-4o (ChatGPT)",
++  "Llama 3.3 Instruct 70B",
++  "Llama 3.1 Instruct 405B",
++  "PALM-2",
++  "Llama 3.2 Instruct 90B (Vision)",
++  "Llama 3.2 Instruct 11B (Vision)",
++  "Llama 4 Scout",
++  "Llama 4 Maverick",
++  "Gemini 2.0 Pro Experimental (Feb '25)",
++  "Gemini 2.0 Flash (Feb '25)",
++  "Gemini 2.5 Flash Preview (Reasoning)",
++  "Gemini 2.5 Flash Preview",
++  "Gemma 3 27B Instruct",
++  "Gemini 2.0 Flash-Lite (Feb '25)",
++  "Gemini 2.5 Pro Preview (Mar' 25)",
++  "Gemma 3 1B Instruct",
++  "Gemma 3 12B Instruct",
++  "Gemini 2.0 Flash Thinking Experimental (Jan '25)",
++  "Gemma 3 4B Instruct",
++  "Gemini 2.5 Flash Preview (May '25) (Reasoning)",
++  "Claude 3.5 Haiku",
++  "Claude 3.7 Sonnet (Extended Thinking)",
++  "Claude 3.7 Sonnet (Standard)",
++  "Pixtral Large",
++  "Mistral Large 2 (Nov '24)",
++  "Mixtral 8x22B Instruct",
++  "Ministral 8B",
++  "Mistral NeMo",
++  "Ministral 3B",
++  "Mixtral 8x7B Instruct",
++  "Mistral Saba",
++  "Mistral Small 3.1",
++  "Codestral (Jan '25)",
++  "Mistral Medium 3",
++  "DeepSeek R1",
++  "DeepSeek R1 Distill Llama 70B",
++  "DeepSeek V3 0324 (Mar' 25)",
++  "DeepSeek R1 Distill Llama 8B",
++  "DeepSeek R1 Distill Qwen 32B",
++  "DeepSeek R1 Distill Qwen 1.5B",
++  "DeepSeek R1 Distill Qwen 14B",
++  "Sonar Pro",
++  "Sonar Reasoning",
++  "Sonar Reasoning Pro",
++  "R1 1776",
++  "Sonar",
++  "Grok 3",
++  "Grok 3 mini Reasoning (high)",
++  "Grok 3 mini Reasoning (Low)",
++  "Grok 3 Reasoning Beta",
++  "Nova Pro",
++  "Nova Lite",
++  "Nova Micro",
++  "Nova Premier",
++  "Phi-4",
++  "Phi-3 Mini Instruct 3.8B",
++  "Phi-4 Mini Instruct",
++  "Phi-4 Multimodal Instruct",
++  "Phi-3 Medium Instruct 14B",
++  "LFM 40B",
++  "DBRX Instruct",
++  "MiniMax-Text-01",
++  "Llama 3.1 Nemotron Instruct 70B",
++  "Llama 3.1 Nemotron Ultra 253B v1 (Reasoning)",
++  "Llama 3.3 Nemotron Super 49B v1",
++  "Llama 3.3 Nemotron Super 49B v1 (Reasoning)",
++  "Llama 3.1 Tulu3 405B",
++  "Reka Flash (Sep '24)",
++  "Reka Core",
++  "Reka Flash (Feb '24)",
++  "Reka Edge",
++  "Reka Flash 3",
++  "DeepHermes 3 - Llama-3.1 8B Preview",
++  "DeepHermes 3 - Mistral 24B Preview",
++  "Hermes 3 - Llama-3.1 70B",
++  "Aya Expanse 32B",
++  "Command A",
++  "Aya Expanse 8B",
++  "Jamba 1.6 Large",
++  "Jamba 1.6 Mini",
++  "Arctic Instruct",
++  "Qwen3 0.6B",
++  "QwQ 32B",
++  "Qwen3 4B",
++  "Qwen3 1.7B",
++  "Qwen3 235B A22B",
++  "Qwen3 0.6B (Reasoning)",
++  "Qwen3 235B A22B (Reasoning)",
++  "Qwen3 4B (Reasoning)",
++  "Qwen3 30B A3B",
++  "Qwen3 32B",
++  "Qwen3 30B A3B (Reasoning)",
++  "Qwen3 14B (Reasoning)",
++  "Qwen3 32B (Reasoning)",
++  "Qwen3 8B",
++  "Qwen3 1.7B (Reasoning)",
++  "Qwen2.5 Coder Instruct 7B",
++  "Qwen3 8B (Reasoning)",
++  "Qwen3 14B",
++  "Yi-Large",
++  "Llama 65B",
++  "Qwen Chat 14B",
++  "o1-preview",
++  "o1-mini",
++  "GPT-4o (Aug '24)",
++  "GPT-4o (May '24)",
++  "GPT-4 Turbo",
++  "GPT-4o (Nov '24)",
++  "GPT-3.5 Turbo",
++  "GPT-4",
++  "GPT-4o (March 2025, chatgpt-4o-latest)",
++  "GPT-4.5 (Preview)",
++  "Llama 3.1 Instruct 70B",
++  "Llama 3.1 Instruct 8B",
++  "Llama 3.2 Instruct 3B",
++  "Llama 3 Instruct 70B",
++  "Llama 3 Instruct 8B",
++  "Llama 3.2 Instruct 1B",
++  "Llama 2 Chat 70B",
++  "Llama 2 Chat 13B",
++  "Llama 2 Chat 7B",
++  "Gemini 2.0 Flash (experimental)",
++  "Gemini 1.5 Pro (Sep '24)",
++  "Gemini 2.0 Flash-Lite (Preview)",
++  "Gemini 1.5 Flash (Sep '24)",
++  "Gemini 1.5 Pro (May '24)",
++  "Gemma 2 27B",
++  "Gemma 2 9B",
++  "Gemini 1.5 Flash-8B",
++  "Gemini 2.0 Flash Thinking Experimental (Dec '24)",
++  "Gemini 1.5 Flash (May '24)",
++  "Gemini 1.0 Pro",
++  "Gemini 1.0 Ultra",
++  "Claude 3.5 Sonnet (Oct '24)",
++  "Claude 3.5 Sonnet (June '24)",
++  "Claude 3 Opus",
++  "Claude 3 Sonnet",
++  "Claude 3 Haiku",
++  "Claude Instant",
++  "Claude 2.1",
++  "Claude 2.0",
++  "Mistral Large 2 (Jul '24)",
++  "Mistral Small 3",
++  "Mistral Small (Sep '24)",
++  "Mistral Small (Feb '24)",
++  "Pixtral 12B (2409)",
++  "Mistral Large (Feb '24)",
++  "Codestral-Mamba",
++  "Mistral 7B Instruct",
++  "Codestral (May '24)",
++  "Mistral Medium",
++  "DeepSeek V3 (Dec '24)",
++  "DeepSeek-V2.5 (Dec '24)",
++  "DeepSeek-Coder-V2",
++  "DeepSeek LLM 67B Chat (V1)",
++  "DeepSeek Coder V2 Lite Instruct",
++  "DeepSeek-V2.5",
++  "DeepSeek-V2-Chat",
++  "Grok Beta",
++  "Grok 2 (Dec '24)",
++  "OpenChat 3.5 (1210)",
++  "Solar Mini",
++  "Command-R+ (Aug '24)",
++  "Command-R+ (Apr '24)",
++  "Command-R (Mar '24)",
++  "Command-R (Aug '24)",
++  "Jamba 1.5 Large",
++  "Jamba Instruct",
++  "Jamba 1.5 Mini",
++  "Qwen2.5 Max",
++  "Qwen2.5 Instruct 72B",
++  "Qwen2.5 Coder Instruct 32B",
++  "Qwen2.5 Turbo",
++  "Qwen2 Instruct 72B",
++  "QwQ 32B-Preview",
++  "Qwen Chat 72B",
++  "Qwen2.5 Instruct 32B",
++  "Qwen1.5 Chat 110B",
++  "GPT-3.5 Turbo (0613)",
++]
++
++export function slugify(name: string): string {
++  return name
++    .toLowerCase()
++    .replace(/\(.*?\)/g, '')
++    .replace(/[^a-z0-9]+/g, '-')
++    .replace(/^-+|-+$/g, '')
++}
++
+diff --git a/src/pages/models/[model].astro b/src/pages/models/[model].astro
+index 864ba88..1686443 100644
+--- a/src/pages/models/[model].astro
++++ b/src/pages/models/[model].astro
+@@ -1,10 +1,16 @@
+ ---
+ import Layout from '../../components/Layout.astro'
++import { modelNames, slugify } from '../../data/models'
++
+ export async function getStaticPaths() {
+-  return []
++  return modelNames.map(name => ({ params: { model: slugify(name) } }))
+ }
++
++const { model } = Astro.params
++const name = modelNames.find(n => slugify(n) === model)
+ ---
+ 
+ <Layout>
+-  <p>Placeholder detail page.</p>
++  <h2>{name}</h2>
++  <p>Model page for {name}.</p>
+ </Layout>
+diff --git a/src/pages/models/index.astro b/src/pages/models/index.astro
+index 418e8d0..a69f78a 100644
+--- a/src/pages/models/index.astro
++++ b/src/pages/models/index.astro
+@@ -1,9 +1,15 @@
+ ---
+ import Layout from '../../components/Layout.astro'
+-title: "Models Page"
++import { modelNames, slugify } from '../../data/models'
++
++title: 'Models'
+ ---
+ 
+ <Layout>
+   <h2>Models</h2>
+-  <p>Models page content.</p>
++  <ul>
++    {modelNames.map(name => (
++      <li><a href={`/models/${slugify(name)}/`}>{name}</a></li>
++    ))}
++  </ul>
+ </Layout>
+ 
+EOF
+)
