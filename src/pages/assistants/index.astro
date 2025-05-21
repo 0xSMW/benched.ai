@@ -1,9 +1,14 @@
 ---
 import Layout from '../../components/Layout.astro'
-title: "Assistants Page"
+import { assistants } from '../../data/assistants'
+title: "Assistants"
 ---
 
 <Layout>
   <h2>Assistants</h2>
-  <p>Assistants page content.</p>
+  <ul>
+    {assistants.map(a => (
+      <li><a href={`/assistants/${a.slug}/`}>{a.name}</a></li>
+    ))}
+  </ul>
 </Layout>
