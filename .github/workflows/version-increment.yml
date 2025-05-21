@@ -1,0 +1,43 @@
+name: Increment Version
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  increment_version:
+    runs-on: ubuntu-latest # Host VM for the container
+    container:
+      image: node:20-alpine # Run steps in this lightweight Docker container
+    permissions:
+      contents: write # Required to push changes back to the repo
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # We need to fetch all history and tags for versioning tools that rely on git history
+          fetch-depth: 0 
+          # This token is provided by GitHub Actions, has write permissions to the repository
+          token: ${{ secrets.GITHUB_TOKEN }} 
+
+      # The 'Set up Node.js' step is removed as node:20-alpine provides Node.js
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run version update script
+        run: node scripts/update-version.js # Node is available from the container
+
+      - name: Commit and push changes
+        run: |
+          # Check if there are any changes to commit
+          if ! git diff --quiet; then
+            git add . # Stage all changes made by the script
+            git commit -m "chore: update version [skip ci]"
+            git push
+          else
+            echo "No changes to commit."
+          fi 
