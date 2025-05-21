@@ -11,3 +11,4 @@
 - Fixed ESLint script to use existing configuration and updated pre-commit hook.
 - Updated ESLint configuration to use flat setup with Astro support.
 - Added Vercel configuration to use pnpm for builds and avoid dependency errors.
+- Added provider detail template with standard sections and placeholder Markdown files for each provider.
