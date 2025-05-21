@@ -15,3 +15,4 @@
 - Removed duplicate variable declarations in the assistants page to resolve build errors.
 - Added dynamic pages for over 100 AI models.
 - Generated placeholder MDX files for all models.
+- Added category metadata to assistant pages for future comparisons.
