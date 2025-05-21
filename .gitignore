@@ -75,6 +75,4 @@ storybook-static/
 # Optional: ignore generated types
 types/
 
-# Optional: ignore static assets cache
-public/assets/
 .vercel
