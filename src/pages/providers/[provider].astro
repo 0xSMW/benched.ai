@@ -1,10 +1,14 @@
 ---
 import Layout from '../../components/Layout.astro'
+import { providers } from '../../data/providers'
 export async function getStaticPaths() {
-  return []
+  return providers.map(p => ({ params: { provider: p.slug } }))
 }
+const { provider } = Astro.params
+const data = providers.find(p => p.slug === provider)
 ---
 
 <Layout>
-  <p>Placeholder detail page.</p>
+  <h2>{data?.name}</h2>
+  <p>Provider page for {data?.name}.</p>
 </Layout>
