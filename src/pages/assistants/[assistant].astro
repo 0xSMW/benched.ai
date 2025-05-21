@@ -11,13 +11,18 @@ const data = assistants.find(a => a.slug === assistant)
 
 const contentModules = import.meta.glob('../../content/assistants/*.md')
 let Content
+let metadata
 if (contentModules[`../../content/assistants/${assistant}.md`]) {
   const mod = await contentModules[`../../content/assistants/${assistant}.md`]()
   Content = mod.default
+  metadata = mod.frontmatter
 }
 ---
 
 <Layout>
   <h2>{data?.name}</h2>
+  {metadata?.categories && (
+    <pre>{JSON.stringify(metadata.categories, null, 2)}</pre>
+  )}
   {Content ? <Content /> : <p>Assistant page for {data?.name}.</p>}
 </Layout>
