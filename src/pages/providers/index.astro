@@ -1,9 +1,14 @@
 ---
 import Layout from '../../components/Layout.astro'
+import { providers } from '../../data/providers'
 title: "Providers Page"
 ---
 
 <Layout>
   <h2>Providers</h2>
-  <p>Providers page content.</p>
+  <ul>
+    {providers.map(p => (
+      <li><a href={`/providers/${p.slug}/`}>{p.name}</a></li>
+    ))}
+  </ul>
 </Layout>

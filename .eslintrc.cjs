@@ -12,6 +12,9 @@ module.exports = {
       parser: 'astro-eslint-parser',
       parserOptions: {
         parser: '@typescript-eslint/parser'
+      },
+      rules: {
+        'no-unused-labels': 'off'
       }
     }
   ],

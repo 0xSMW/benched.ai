@@ -6,6 +6,7 @@ This repository hosts the Benched.ai Astro site.
 - `pnpm run lint` to check for errors. `pnpm run dev` for local development. Run `pnpm run build` to ensure the site compiles before pushing changes.
 - Keep the codebase minimal and follow the existing project structure under `src/` and `public/`.
 - Prefer creating reusable components in `src/components/` when adding UI elements.
+- Use `title:` frontmatter for page titles instead of `export const title` on Astro pages.
 
 ## Planning and Documentation
 
