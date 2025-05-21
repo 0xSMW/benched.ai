@@ -6,10 +6,19 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "eslint . --ext .js,.ts,.astro",
+    "prepare": "husky install"
   },
   "dependencies": {
     "astro": "^5.7.13"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.50.0",
+    "eslint-plugin-astro": "^0.30.0",
+    "husky": "^8.0.0"
   },
   "packageManager": "pnpm@10.5.2"
 }
