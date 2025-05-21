@@ -1,4 +1,4 @@
 {
-  "installCommand": "pnpm i",
-  "buildCommand": "pnpm run build"
+  "installCommand": "npm i",
+  "buildCommand": "astro build"
 }
