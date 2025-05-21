@@ -8,3 +8,4 @@
 - Added pages listing 32 inference providers.
 - Disabled the `no-unused-labels` rule for Astro files and reverted pages to `title:` frontmatter.
 - Fixed ESLint script to use existing configuration and updated pre-commit hook.
+- Updated ESLint configuration to use flat setup with Astro support.
