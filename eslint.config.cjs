@@ -40,6 +40,7 @@ module.exports = [
     files: ["**/*.astro"],
     rules: {
       "no-unused-labels": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
       semi: "off", // Disable generic semi rule
       "astro/semi": ["error", "never"],
     },
