@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run the version update script
+node scripts/update-version.js
+
+# Exit with status of version update script
+exit $? 

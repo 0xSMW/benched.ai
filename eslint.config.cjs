@@ -25,6 +25,16 @@ module.exports = [
       semi: ["error", "never"],
     },
   },
+  // Configuration for scripts
+  {
+    files: ["scripts/**/*.js"],
+    languageOptions: {
+      globals: {
+        console: "readonly",
+        process: "readonly",
+      },
+    },
+  },
   // Astro-specific overrides
   {
     files: ["**/*.astro"],
