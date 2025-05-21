@@ -25,11 +25,22 @@ module.exports = [
       semi: ["error", "never"],
     },
   },
+  // Configuration for scripts
+  {
+    files: ["scripts/**/*.js"],
+    languageOptions: {
+      globals: {
+        console: "readonly",
+        process: "readonly",
+      },
+    },
+  },
   // Astro-specific overrides
   {
     files: ["**/*.astro"],
     rules: {
       "no-unused-labels": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
       semi: "off", // Disable generic semi rule
       "astro/semi": ["error", "never"],
     },

@@ -12,6 +12,8 @@ if (contentModules[`../../content/assistants/${assistant}.md`]) {
   const mod = await contentModules[`../../content/assistants/${assistant}.md`]()
   Content = mod.default
 }
+const { assistant } = Astro.params
+const data = assistants.find(a => a.slug === assistant)
 ---
 
 <Layout>
