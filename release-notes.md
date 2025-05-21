@@ -10,4 +10,6 @@
 - Disabled the `no-unused-labels` rule for Astro files and reverted pages to `title:` frontmatter.
 - Fixed ESLint script to use existing configuration and updated pre-commit hook.
 - Updated ESLint configuration to use flat setup with Astro support.
+- Added placeholder Markdown pages for each assistant.
 - Added provider detail template with standard sections and placeholder Markdown files for each provider.
+- Removed duplicate variable declarations in the assistants page to resolve build errors.
