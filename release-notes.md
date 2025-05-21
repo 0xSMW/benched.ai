@@ -7,3 +7,4 @@
 - Migrated project to pnpm and removed npm lockfile.
 - Added pages listing 32 inference providers.
 - Disabled the `no-unused-labels` rule for Astro files and reverted pages to `title:` frontmatter.
+- Fixed ESLint script to use existing configuration and updated pre-commit hook.
