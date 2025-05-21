@@ -1,7 +1,7 @@
 {
   "name": "benched-ai",
   "type": "module",
-  "version": "2025.0521.0.1",
+  "version": "2025.0521.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
