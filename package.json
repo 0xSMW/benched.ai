@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "benched-ai",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -19,5 +19,6 @@
     "eslint": "^8.50.0",
     "eslint-plugin-astro": "^0.30.0",
     "husky": "^8.0.0"
-  }
+  },
+  "packageManager": "pnpm@10.5.2"
 }

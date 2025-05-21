@@ -1,9 +1,9 @@
 This repository hosts the Benched.ai Astro site.
-`npm install` was already run so you don't need to run it again.
+`pnpm install` was already run so you don't need to run it again.
 
 ## Development Workflow
 
-- `npm run dev` for local development. Run `npm run build` to ensure the site compiles before pushing changes.
+- `pnpm run dev` for local development. Run `pnpm run build` to ensure the site compiles before pushing changes.
 - Keep the codebase minimal and follow the existing project structure under `src/` and `public/`.
 - Prefer creating reusable components in `src/components/` when adding UI elements.
 
@@ -15,4 +15,4 @@ This repository hosts the Benched.ai Astro site.
 ## Pull Requests
 
 - Keep pull requests focused and include relevant context in the description.
-- Ensure the project builds (`npm run build`) before submitting a PR.
+- Ensure the project builds (`pnpm run build`) before submitting a PR.
